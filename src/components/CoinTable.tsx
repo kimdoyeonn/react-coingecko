@@ -1,9 +1,6 @@
-import { useContext, useState } from 'react'
-import useBookmark from '../hooks/useBookmark'
 import { CoinType, CurrencyType } from '../types/coin'
 import BookmarkButton from './BookmarkButton'
-import ToastContext from '../contexts/ToastContext'
-import constants from '../constants'
+import priceService from '../util/price'
 
 const PercentageItem = ({
   percentage,
@@ -19,55 +16,23 @@ const PercentageItem = ({
   )
 }
 
-const PriceItem = ({
-  price,
-  currency,
-  className,
-}: {
-  price: number
-  currency: CurrencyType
-  className?: HTMLDivElement['className']
-}) => {
-  const prefix = currency === 'krw' ? '₩' : currency === 'usd' ? '$' : ''
-  const formattedPrice = price
-    .toFixed(2)
-    .toString()
-    .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-    .replace('.00', '')
-
-  return <div className={className}>{prefix + formattedPrice}</div>
-}
-
 const CoinTableRow = ({ coin, currency }: { coin: CoinType; currency: CurrencyType }) => {
-  const { addToast } = useContext(ToastContext)
-  const { addBookmark, removeBookmark, getIsBookmarked } = useBookmark()
-  const [isBookmarked, setIsBookmarked] = useState(getIsBookmarked(coin.id))
-
-  const handleBookmark = (target: string) => {
-    if (isBookmarked) {
-      removeBookmark(target)
-      setIsBookmarked(false)
-      addToast({ message: constants.bookmark.toast.remove })
-    } else {
-      addBookmark(target)
-      setIsBookmarked(true)
-      addToast({ message: constants.bookmark.toast.add })
-    }
+  const getPrice = (price: number) => {
+    return priceService.getFormattedPrice({ currency, price })
   }
-  console.log(coin.symbol, coin)
   return (
     <>
       <div className="coin-table row">
-        <div className="text-left cursor-pointer" onClick={() => handleBookmark(coin.id)}>
-          <BookmarkButton checked={isBookmarked} size={20} />
+        <div className="text-left">
+          <BookmarkButton id={coin.id} size={20} />
         </div>
         <div className="col-span-2 text-left">{coin.name}</div>
         <div className="text-left">{(coin.symbol ?? '').toUpperCase()}</div>
-        <PriceItem price={coin.current_price} currency={currency} className="col-span-2 text-end" />
+        <div className="col-span-2 text-end">{getPrice(coin.current_price)}</div>
         <PercentageItem percentage={coin.price_change_percentage_1h_in_currency} />
         <PercentageItem percentage={coin.price_change_percentage_24h_in_currency} />
         <PercentageItem percentage={coin.price_change_percentage_7d_in_currency} />
-        <PriceItem price={coin.total_volume} currency={currency} className="col-span-3 text-end" />
+        <div className="col-span-3 text-end">{getPrice(coin.total_volume)}</div>
       </div>
     </>
   )

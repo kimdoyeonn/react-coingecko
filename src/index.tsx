@@ -8,6 +8,8 @@ import CoinListPage from './pages/CoinList'
 import CoinBookmarkPage from './pages/CoinBookmark'
 import ToastProvider from './contexts/ToastProvider'
 import CurrencyProvider from './contexts/CurrencyProvider'
+import CoinDetailPage from './pages/CoinDetail'
+import ToastContainer from './components/ToastContainer'
 
 const router = createBrowserRouter([
   {
@@ -23,10 +25,14 @@ const router = createBrowserRouter([
         element: <CoinListPage />,
       },
       {
-        path: '/coins/bookmark',
+        path: '/bookmark',
         element: <CoinBookmarkPage />,
       },
     ],
+  },
+  {
+    path: '/coins/:id',
+    element: <CoinDetailPage />,
   },
 ])
 
@@ -37,6 +43,7 @@ root.render(
     <CurrencyProvider>
       <ToastProvider>
         <RouterProvider router={router} />
+        <ToastContainer />
       </ToastProvider>
     </CurrencyProvider>
   </React.StrictMode>,

@@ -31,3 +31,41 @@ export type CoinType = {
 }
 
 export type CurrencyType = 'krw' | 'usd'
+
+export type CoinDetailType = {
+  id: string
+  name: string
+  symbol: string
+  description: {
+    ko: string
+    en: string
+  }
+  links: {
+    homepage: string[]
+  }
+  image: {
+    thumb: string
+    small: string
+  }
+  localization: {
+    ko: string
+    en: string
+  }
+  market_data: {
+    current_price: {
+      // 현재가격
+      [key in CurrencyType | string]: number
+    }
+    market_cap: {
+      // 시가총액
+      [key in CurrencyType | string]: number
+    }
+    total_volume: {
+      [key in CurrencyType | string]: number
+    }
+    price_change_percentage_24h_in_currency: {
+      [key in CurrencyType | string]: number
+    }
+  }
+  market_cap_rank: number
+}

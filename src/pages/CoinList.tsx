@@ -5,8 +5,10 @@ import constants from '../constants'
 import Select from '../components/Select'
 import CoinTable from '../components/CoinTable'
 import useCoinMarket from '../hooks/useCoinMarket'
+import { useLocation } from 'react-router-dom'
 
 const CoinListPage = () => {
+  const location = useLocation()
   const [selectedCurrency, setSelectedCurrency] = useState<CurrencyType>(constants.default.market.currency)
   const [selectedPerPage, setSelectedPerPage] = useState<string>(constants.default.market.perPage.toString())
   const [selectedView, setSelectedView] = useState<'all' | 'bookmark'>('all')
@@ -40,10 +42,17 @@ const CoinListPage = () => {
         <Loader />
       ) : (
         <>
-          <CoinTable coins={coins} currency={selectedCurrency} />
-          <div className="w-full">
-            <button onClick={fetchMore}>더보기</button>
-          </div>
+          <CoinTable
+            key={location.pathname}
+            coins={coins}
+            currency={selectedCurrency}
+            emptyMessage="정보를 불러오지 못했습니다."
+          />
+          {coins.length === 0 ?? (
+            <div className="w-full">
+              <button onClick={fetchMore}>더보기</button>
+            </div>
+          )}
         </>
       )}
     </>

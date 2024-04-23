@@ -1600,7 +1600,7 @@ const useCoinMarket = ({
   const [coins, setCoins] = useState<CoinType[]>([] as CoinType[])
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const { bookmarks } = useBookmark()
-  const [page, setPage] = useState(0)
+  const [page, setPage] = useState(1)
 
   const fetchMore = () => {
     setPage((prev) => prev + 1)
@@ -1618,7 +1618,7 @@ const useCoinMarket = ({
         if (page === 1) {
           setCoins(coins.data)
         } else {
-          setCoins((prev) => [...prev, coins.data])
+          setCoins((prev) => [...prev, ...coins.data])
         }
       } catch (err) {
         console.error(err)

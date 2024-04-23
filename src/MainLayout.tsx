@@ -9,7 +9,6 @@ const MainLayout = () => {
       <div className="p-5">
         <Outlet />
       </div>
-      <ToastContainer />
     </>
   )
 }

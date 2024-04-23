@@ -3,6 +3,7 @@ import CoinTable from '../components/CoinTable'
 import constants from '../constants'
 import useCoinMarket from '../hooks/useCoinMarket'
 import CurrencyContext from '../contexts/CurrencyContext'
+import Loader from '../components/Loader'
 
 const CoinBookmarkPage = () => {
   const { currency } = useContext(CurrencyContext)
@@ -13,7 +14,16 @@ const CoinBookmarkPage = () => {
 
   return (
     <>
-      <CoinTable coins={coins} currency={constants.default.market.currency} emptyMessage="북마크한 코인이 없습니다." />
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <CoinTable
+          key={location.pathname}
+          coins={coins}
+          currency={constants.default.market.currency}
+          emptyMessage="정보를 불러오지 못했습니다."
+        />
+      )}
     </>
   )
 }

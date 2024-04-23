@@ -35,11 +35,11 @@ code {
     &.head {
       @apply py-2 bg-gray-100 font-bold text-gray-600
     }
-    .rise {
-      @apply text-red-600
-    }
-    .fall {
-      @apply text-blue-600
-    }
+  }
+  .rise {
+    @apply text-red-600
+  }
+  .fall {
+    @apply text-blue-600
   }
 }

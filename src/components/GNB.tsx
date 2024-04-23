@@ -11,7 +11,7 @@ const GNB_MENU: {
     content: '가상자산 시세 목록',
   },
   {
-    path: '/coins/bookmark',
+    path: '/bookmark',
     content: '북마크 목록',
   },
 ]
