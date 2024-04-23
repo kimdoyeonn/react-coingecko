@@ -6,6 +6,8 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import MainLayout from './MainLayout'
 import CoinListPage from './pages/CoinList'
 import CoinBookmarkPage from './pages/CoinBookmark'
+import ToastProvider from './contexts/ToastProvider'
+import CurrencyProvider from './contexts/CurrencyProvider'
 
 const router = createBrowserRouter([
   {
@@ -32,7 +34,11 @@ const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <CurrencyProvider>
+      <ToastProvider>
+        <RouterProvider router={router} />
+      </ToastProvider>
+    </CurrencyProvider>
   </React.StrictMode>,
 )
 

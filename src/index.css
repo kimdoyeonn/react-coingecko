@@ -9,9 +9,37 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  font-size: 75%; /* = 12px */
+
+  @screen md {
+    font-size: 87.5%; /* = 14px */
+  }
+  @screen xl {
+    font-size: 100%; /* = 16px */
+  }
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+@layer components {
+  .coin-table {
+    @apply font-bold;
+
+    &.row {
+      @apply px-4 py-4 grid grid-cols-12 text-right items-center border-b
+    }
+    &.head {
+      @apply py-2 bg-gray-100 font-bold text-gray-600
+    }
+    .rise {
+      @apply text-red-600
+    }
+    .fall {
+      @apply text-blue-600
+    }
+  }
 }
