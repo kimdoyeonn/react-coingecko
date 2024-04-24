@@ -17,6 +17,15 @@ const Coin = {
         ...(params.ids ? { ids: params.ids } : {}),
       },
     }),
+  getCoinDetail: async (params: { id: string }) =>
+    await coingeckoApi.get(`/coins/${params.id}`, {
+      params: {
+        tickers: false,
+        community_data: false,
+        developer_data: false,
+        sparkline: false,
+      },
+    }),
 }
 
 export default Coin

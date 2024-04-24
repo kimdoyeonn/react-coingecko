@@ -1,6 +1,7 @@
 import { CoinType, CurrencyType } from '../types/coin'
 import BookmarkButton from './BookmarkButton'
 import priceService from '../util/price'
+import { Link } from 'react-router-dom'
 
 const PercentageItem = ({
   percentage,
@@ -26,7 +27,9 @@ const CoinTableRow = ({ coin, currency }: { coin: CoinType; currency: CurrencyTy
         <div className="text-left">
           <BookmarkButton id={coin.id} size={20} />
         </div>
-        <div className="col-span-2 text-left">{coin.name}</div>
+        <Link to={`/coins/${coin.id}`} className="col-span-2 text-left cursor-pointer">
+          {coin.name}
+        </Link>
         <div className="text-left">{(coin.symbol ?? '').toUpperCase()}</div>
         <div className="col-span-2 text-end">{getPrice(coin.current_price)}</div>
         <PercentageItem percentage={coin.price_change_percentage_1h_in_currency} />
