@@ -3,18 +3,18 @@ import ReactDOM from 'react-dom/client'
 import './index.css'
 import reportWebVitals from './reportWebVitals'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
-import MainLayout from './MainLayout'
+import Layout from './Layout'
 import CoinListPage from './pages/CoinList'
 import CoinBookmarkPage from './pages/CoinBookmark'
 import ToastProvider from './contexts/ToastProvider'
 import CurrencyProvider from './contexts/CurrencyProvider'
 import CoinDetailPage from './pages/CoinDetail'
-import ToastContainer from './components/ToastContainer'
+import ToastContainer from './components/toast/ToastContainer'
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <MainLayout />,
+    element: <Layout />,
     children: [
       {
         path: '/',

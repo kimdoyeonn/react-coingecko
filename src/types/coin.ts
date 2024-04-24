@@ -32,6 +32,8 @@ export type CoinType = {
 
 export type CurrencyType = 'krw' | 'usd'
 
+export type ViewType = 'all' | 'bookmark'
+
 export type CoinDetailType = {
   id: string
   name: string

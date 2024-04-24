@@ -1,9 +1,9 @@
 import { ChangeEvent, useState } from 'react'
-import { CurrencyType } from '../types/coin'
-import Loader from '../components/Loader'
+import { CurrencyType, ViewType } from '../types/coin'
+import Loader from '../components/common/Loader'
 import constants from '../constants'
-import Select from '../components/Select'
-import CoinTable from '../components/CoinTable'
+import Select from '../components/common/Select'
+import CoinTable from '../components/coin-table'
 import useCoinMarket from '../hooks/useCoinMarket'
 import { useLocation } from 'react-router-dom'
 
@@ -11,9 +11,9 @@ const CoinListPage = () => {
   const location = useLocation()
   const [selectedCurrency, setSelectedCurrency] = useState<CurrencyType>(constants.default.market.currency)
   const [selectedPerPage, setSelectedPerPage] = useState<string>(constants.default.market.perPage.toString())
-  const [selectedView, setSelectedView] = useState<'all' | 'bookmark'>('all')
+  const [selectedView, setSelectedView] = useState<ViewType>('all')
 
-  const { coins, isLoading, fetchMore } = useCoinMarket({
+  const { coins, isLoading, fetchMore, errorMessage } = useCoinMarket({
     currency: selectedCurrency,
     perPage: selectedPerPage,
     view: selectedView,
@@ -24,7 +24,7 @@ const CoinListPage = () => {
   }
 
   const handleView = (e: ChangeEvent<HTMLSelectElement>) => {
-    setSelectedView(e.target.value as 'all' | 'bookmark')
+    setSelectedView(e.target.value as ViewType)
   }
 
   const handlePerPage = (e: ChangeEvent<HTMLSelectElement>) => {
@@ -33,10 +33,13 @@ const CoinListPage = () => {
 
   return (
     <>
-      <div className="flex justify-end gap-2 mb-2">
-        <Select value={selectedView} options={constants.market.filter.view} onChange={handleView} />
-        <Select value={selectedCurrency} options={constants.market.filter.currency} onChange={handleCurrency} />
-        <Select value={selectedPerPage.toString()} options={constants.market.filter.page} onChange={handlePerPage} />
+      <div className="mb-2 flex justify-between items-center">
+        <div className="text-red-500 font-bold">{errorMessage}</div>
+        <div className="flex justify-end gap-2">
+          <Select value={selectedView} options={constants.market.filter.view} onChange={handleView} />
+          <Select value={selectedCurrency} options={constants.market.filter.currency} onChange={handleCurrency} />
+          <Select value={selectedPerPage.toString()} options={constants.market.filter.page} onChange={handlePerPage} />
+        </div>
       </div>
       {isLoading ? (
         <Loader />
@@ -48,11 +51,11 @@ const CoinListPage = () => {
             currency={selectedCurrency}
             emptyMessage="정보를 불러오지 못했습니다."
           />
-          {coins.length === 0 ?? (
+          {coins.length > 0 ? (
             <div className="w-full">
               <button onClick={fetchMore}>더보기</button>
             </div>
-          )}
+          ) : null}
         </>
       )}
     </>

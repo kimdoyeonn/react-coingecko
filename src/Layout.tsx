@@ -1,6 +1,5 @@
 import { Outlet } from 'react-router-dom'
-import GNB from './components/GNB'
-import ToastContainer from './components/ToastContainer'
+import GNB from './components/common/GNB'
 
 const MainLayout = () => {
   return (
