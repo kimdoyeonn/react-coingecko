@@ -52,7 +52,7 @@ const CoinListPage = () => {
             emptyMessage="정보를 불러오지 못했습니다."
           />
           {coins.length > 0 ? (
-            <div className="w-full">
+            <div className="flex w-full justify-center h-10 items-center">
               <button onClick={fetchMore}>더보기</button>
             </div>
           ) : null}

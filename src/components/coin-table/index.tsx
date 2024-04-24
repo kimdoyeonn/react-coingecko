@@ -14,8 +14,8 @@ const CoinTable = ({
     <>
       <div className="coin-table row head">
         <div></div>
-        <div className="col-span-3 text-left">자산</div>
-        <div className="col-span-2 text-end">Price</div>
+        <div className="col-span-2 md:col-span-3 text-left">자산</div>
+        <div className="col-span-3 md:col-span-2 text-end">Price</div>
         <div>1H</div>
         <div>24H</div>
         <div>7D</div>

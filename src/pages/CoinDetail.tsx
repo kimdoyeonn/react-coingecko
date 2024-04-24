@@ -1,7 +1,6 @@
 import { ChangeEvent, useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import BookmarkButton from '../components/BookmarkButton'
-import useBookmark from '../hooks/useBookmark'
 import { CoinDetailType, CurrencyType } from '../types/coin'
 import constants from '../constants'
 import Select from '../components/common/Select'
@@ -60,11 +59,14 @@ const CoinDetailPage = () => {
         <Loader />
       ) : (
         <div className="p-5">
+          <Link to="/" className="underline">
+            홈으로
+          </Link>
           <div className="flex justify-between mb-6">
             <div className="flex items-center gap-4">
               <BookmarkButton id={coin.id} size={30} />
               <img src={coin.image.small} />
-              <div className="text-2xl font-bold">
+              <div className="text-xl md:text-2xl font-bold">
                 {coin.localization.ko} ({coin.symbol.toUpperCase()})
               </div>
             </div>
@@ -80,13 +82,15 @@ const CoinDetailPage = () => {
               </div>
               <div className="grid grid-cols-2 items-center">
                 <div className="bg-stone-200 p-4 font-bold">웹사이트</div>
-                <div className="p-4">{coin.links.homepage[0]}</div>
+                <Link to={coin.links.homepage?.[0] ?? ''} className="p-4 underline">
+                  {coin.links.homepage?.[0] ?? ''}
+                </Link>
               </div>
             </div>
             <div className="flex flex-col justify-between">
               <div className="flex justify-end gap-4">
                 <div className="flex flex-col justify-end items-end">
-                  <div className="text-end text-2xl font-bold">
+                  <div className="text-end text-xl md:text-2xl font-bold">
                     {priceService.getFormattedPrice({
                       price: coin.market_data.current_price[selectedCurrency],
                       currency: selectedCurrency,
@@ -99,7 +103,7 @@ const CoinDetailPage = () => {
                 <div className="flex flex-col justify-end">
                   <div
                     className={
-                      'font-bold text-lg' +
+                      'font-bold text-base md:text-lg' +
                       (coin.market_data.price_change_percentage_24h_in_currency[selectedCurrency] > 0
                         ? ' rise'
                         : ' fall')
@@ -116,13 +120,13 @@ const CoinDetailPage = () => {
                   </div>
                 </div>
               </div>
-              <div className="grid grid-cols-2 text-end">
+              <div className="grid grid-cols-2 text-end mt-2">
                 <div>
-                  <div>시가총액</div>
+                  <div className="font-bold mb-1">시가총액</div>
                   <div>{getPrice(coin.market_data.market_cap?.[selectedCurrency])}</div>
                 </div>
                 <div>
-                  <div>24시간 거래대금</div>
+                  <div className="font-bold mb-1">24시간 거래대금</div>
                   <div>{getPrice(coin.market_data.total_volume[selectedCurrency])}</div>
                 </div>
               </div>

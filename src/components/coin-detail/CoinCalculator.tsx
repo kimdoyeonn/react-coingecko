@@ -60,25 +60,25 @@ const CoinCalculator = ({
 
   return (
     <div className="p-4 bg-stone-200">
-      <div className="font-bold mb-2">가격 계산</div>
-      <div className="flex text-center h-10 items-center text-lg gap-2">
-        <div className="flex flex-1 items-center">
-          <div className="flex-1 font-bold bg-stone-100">{cryptoCurrency.toUpperCase()}</div>
-          <div className="flex-[2] bg-white">
+      <div className="font-bold text-base md:text-lg mb-2">가격 계산</div>
+      <div className="flex text-center items-center text-base md:text-lg gap-2 flex-col md:flex-row">
+        <div className="grid grid-cols-3 flex-1 w-full items-center">
+          <div className="col-span-1 py-1 font-bold bg-stone-100">{cryptoCurrency.toUpperCase()}</div>
+          <div className="col-span-2 bg-white">
             <input
               value={getFormattedDecimalNumber(String(displayPrices.cryptoPrice))}
-              className="text-end"
+              className="text-end py-1 px-2 w-full"
               onChange={(e) => handleDisplayPrices(e, true)}
             />
           </div>
         </div>
-        <div>{'<->'}</div>
-        <div className="flex flex-1 items-center">
-          <div className="flex-1 font-bold bg-stone-100">{currency.toUpperCase()}</div>
-          <div className="flex-[2] bg-white">
+        <div className="flex-shrink-0">{'↔'}</div>
+        <div className="grid grid-cols-3 flex-1 w-full items-center">
+          <div className="col-span-1 py-1 font-bold bg-stone-100">{currency.toUpperCase()}</div>
+          <div className="col-span-2 bg-white">
             <input
               value={BigNumber(displayPrices.price ?? 0).toFormat(0)}
-              className="text-end"
+              className="text-end py-1 px-2 w-full"
               onChange={(e) => handleDisplayPrices(e, false)}
             />
           </div>

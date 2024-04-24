@@ -17,7 +17,7 @@ const GNB_MENU: {
 ]
 
 const MENU_STYLE = {
-  default: 'border text-xl font-bold flex items-center justify-center',
+  default: 'border text-lg md:text-xl font-bold flex items-center justify-center',
   selected: 'text-zinc-900 bg-white',
   unselected: 'text-zinc-500',
 }

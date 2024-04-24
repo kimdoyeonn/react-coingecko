@@ -30,7 +30,7 @@ code {
     @apply font-bold;
 
     &.row {
-      @apply px-4 py-4 grid grid-cols-12 text-right items-center border-b
+      @apply px-4 py-1 md:py-4 gap-1 grid grid-cols-6 md:grid-cols-12 text-right items-center border-b
     }
     &.head {
       @apply py-2 bg-gray-100 font-bold text-gray-600
